@@ -180,6 +180,20 @@
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // --- USER CONFIGURATION ---
+        // IMPORTANT: When deploying to a service like Netlify,
+        // replace the placeholder values below with your own Firebase project's configuration.
+        // You can find these details in your Firebase project settings.
+        const userFirebaseConfig = {
+            apiKey: "AIzaSy...YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        // -------------------------
+
         document.addEventListener('DOMContentLoaded', () => {
             // DOM Elements
             const studentRulesList = document.getElementById('student-rules');
@@ -210,7 +224,9 @@
             let apiKey = "";
 
             // --- FIREBASE SETUP ---
-            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "DEMO", authDomain: "DEMO", projectId: "DEMO" };
+            // Use the configuration from the Canvas environment if it exists,
+            // otherwise, use the user-provided configuration from above.
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : userFirebaseConfig;
             const appId = typeof __app_id !== 'undefined' ? __app_id : 'prep-d-contract';
             const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : undefined;
 
@@ -410,4 +426,5 @@
     </script>
 </body>
 </html>
+
 
